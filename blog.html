@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Dashboard</title>
+  <link rel="stylesheet" href="./style/style.css">
+  
+  <!-- Add your CSS and JavaScript includes here -->
+</head>
+<body>
+    <div class="navigation-bar">
+        <div class="left"  style="margin-left: 25px;">
+          <p class="app-name">Personal Blogging App</p>
+        </div>
+        <div class="right">
+    
+    
+           
+    
+    
+              <div  style="margin-left: 25px;">
+                <a href="./profile.html" class="profile" style="color: white;">profile</a>
+              </div>
+    
+              <div style="margin-left: 25px;">
+                <a href="./home.html" class="profile" style="color: white;">All blog</a>
+              </div>  
+              
+              
+              <div style="margin-left: 25px;">
+                <a href="./blog.html" class="profile" style="color: white;">Create blog</a>
+              </div>  
+    
+            <div class="logout2">
+          <a href="./login.html" class="logout" >Logout</a>
+        </div>
+       
+    
+    
+       
+        </div>
+      </div>  
+  <main>
+    <section>
+      <h2>Create New Blog</h2>
+      <form id="newBlogForm">
+        <label for="blogTitle">Blog Title (5-50 characters)</label>
+        <input type="text" id="blogTitle" name="blogTitle" minlength="5" maxlength="50" required>
+        
+        <label for="blogBody">Blog Body (100-3000 characters)</label>
+        <textarea id="blogBody" name="blogBody" minlength="100" maxlength="3000" required></textarea>
+        
+        <button type="submit">Publish Blog</button>
+      </form>
+    </section>
+    <section>
+      <h2>Your Blogs</h2>
+      <ul id="blogList"></ul>
+    </section>
+  </main>
+  <script>
+    // JavaScript code for handling form submission, blog display, and deletion
+    // Replace with your actual Firebase setup and logic
+    
+    // Function to add a new blog post
+    function addBlogToDashboard(blogTitle, blogBody, publishDate) {
+      const blogList = document.getElementById("blogList");
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <h3>${blogTitle}</h3>
+        <p>${blogBody}</p>
+        <p>Publish Date: ${publishDate}</p>
+        <button class="editBtn">Edit</button>
+        <button class="deleteBtn">Delete</button>
+      `;
+      blogList.appendChild(li);
+    }
+    
+    // Function to update a blog post
+    function updateBlogInDashboard(li, updatedTitle, updatedBody) {
+      li.querySelector("h3").textContent = updatedTitle;
+      li.querySelector("p").textContent = updatedBody;
+    }
+    
+    // Function to handle form submission
+    document.getElementById("newBlogForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const blogTitle = event.target.elements.blogTitle.value;
+      const blogBody = event.target.elements.blogBody.value;
+      const publishDate = new Date().toLocaleString(); // Replace with Firebase timestamp
+      addBlogToDashboard(blogTitle, blogBody, publishDate);
+      event.target.reset();
+    });
+    
+    // Function to handle edit and delete buttons
+    document.getElementById("blogList").addEventListener("click", function(event) {
+      const target = event.target;
+      if (target.classList.contains("editBtn")) {
+        // Handle edit logic
+        // Example: Get the current values, display in a form for editing, update the UI
+      } else if (target.classList.contains("deleteBtn")) {
+        if (confirm("Are you sure you want to delete this blog?")) {
+          // Handle delete logic
+          // Example: Remove the blog from the UI and database
+          target.closest("li").remove();
+        }
+      }
+    });
+    
+    // Function to handle logout button
+    document.getElementById("logoutBtn").addEventListener("click", function() {
+      // Handle logout logic
+      // Example: Redirect the user to the logout page or clear session data
+    });
+  </script>
+</body>
+</html>

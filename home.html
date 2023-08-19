@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/style/style.css">
+    <!-- Firebase configuration script here -->
+    <!-- Bootstrap CSS here -->
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+
+
+<body class="bg-light">
+
+
+    <div class="navigation-bar">
+        <div class="left"  style="margin-left: 25px;">
+          <p class="app-name">Personal Blogging App</p>
+        </div>
+        <div class="right">
+    
+    
+           
+    
+    
+              <div  style="margin-left: 25px;">
+                <a href="./profile.html" class="profile" style="color: white;">profile</a>
+              </div>
+    
+              <div style="margin-left: 25px;">
+                <a href="./home.html" class="profile" style="color: white;">All blog</a>
+              </div>  
+              
+              
+              <div style="margin-left: 25px;">
+                <a href="./blog.html" class="profile" style="color: white;">Create blog</a>
+              </div>  
+    
+            <div class="logout2">
+          <a href="./login.html" class="logout" >Logout</a>
+        </div>
+       
+    
+    
+       
+        </div>
+      </div> 
+
+  <div class="dashboard">
+    
+    </div class="btnn">
+<div>
+  <a href="./blog.html" class="logout" >
+    <button class="publish-button">
+  Create Your blog </a>
+</button>
+</div>
+
+
+<div style="margin-top: 50px;">
+    <h1>My blogs</h1>
+<div class="row">
+    <div class="column">
+      <img src="/img/1.png" alt="Image 1">
+      <h2>Tapestry of Thoughts</h2>
+      <h6>13-2-2023</h6>
+      <p>Birds sing a melodious chorus, while the gentle rustling of leaves creates a soothing symphony. </p>
+      
+    </div>
+    <div class="column">
+      <img src="/img/3.png" alt="Image 2">
+      <h2>Solace To Those Seeking</h2>
+      <h6>29-05-2023</h6>
+      <p> As the day wanes, hues of orange and pink paint the sky in a breathtaking display, </p>
+      
+    </div>
+    <div class="column">
+      <img src="/img/face.png" alt="Image 3">
+      <h2> Sunlight Filters Through</h2>
+      <h6>23-07-2023</h6>
+      <p>Lves creates a soothing symphony. This serene oasis offers solace to those seeking a .</p>
+     
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="column">
+      <img src="/img/secound.png" alt="Image 1">
+      <h1>Tranquil Heart</h1>
+      <h6>19-8-2023</h6>
+      <p>Exploring the Wonders of Nature: A Journey Through Lush Forests and Majestic Mountains</p>
+     
+    </div>
+    <div class="column">
+      <img src="/img/tecno.png" alt="Image 2">
+      <h2>Enchanting, Weaves Its Magic</h2>
+      <h6>19-8-2023</h6>
+      <p> bustling world. Majestic mountains stand tall in the distance, their peaks Sed euismod.</p>
+     
+    </div>
+    <div class="column">
+      <img src="/img/tecno2.png" alt="Image 3">
+      <h2>Unveiling the Tapestry of Thought</h2>
+      <h6>19-8-2023</h6>
+      <p> Tapestry of Thoughts: Chronicles of Life, Creativity, and Exploration.</p>
+   
+    </div>
+  </div>
+</div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- Firebase configuration script here -->
+    <script>
+        // Initialize Firebase
+        // Your Firebase configuration code here
+
+        const newBlogForm = document.getElementById("new-blog-form");
+        const blogList = document.getElementById("blog-list");
+
+        // Submit new blog form
+        newBlogForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const title = newBlogForm["blog-title"].value;
+            const body = newBlogForm["blog-body"].value;
+            const timestamp = firebase.firestore.FieldValue.serverTimestamp();
+
+            // Store new blog in Firestore
+            await firebase.firestore().collection("blogs").add({
+                title: title,
+                body: body,
+                timestamp: timestamp
+            });
+
+            // Clear form
+            newBlogForm.reset();
+        });
+
+        // Display existing blogs
+        const blogsRef = firebase.firestore().collection("blogs").orderBy("timestamp", "desc");
+
+        blogsRef.onSnapshot((snapshot) => {
+            blogList.innerHTML = ""; // Clear existing blogs
+            snapshot.forEach((doc) => {
+                const blogData = doc.data();
+                const blogDate = new Date(blogData.timestamp.seconds * 1000).toLocaleDateString();
+                const blogHtml = `
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">${blogData.title}</h5>
+                            <p class="card-text">${blogData.body}</p>
+                            <p class="card-text">Published on: ${blogDate}</p>
+                        </div>
+                    </div>
+                `;
+                blogList.innerHTML += blogHtml;
+            });
+        });
+    </script>
+    <!-- Bootstrap JavaScript here -->
+</body>
+</html>

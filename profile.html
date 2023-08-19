@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <div class="navigation-bar">
+      <div class="left" style="margin-left: 25px">
+        <p class="app-name">Personal Blogging App</p>
+      </div>
+      <div class="right">
+        <div style="margin-left: 25px">
+          <a href="./profile.html" class="profile" style="color: white"
+            >profile</a
+          >
+        </div>
+
+        <div style="margin-left: 25px">
+          <a href="./home.html" class="profile" style="color: white"
+            >All blog</a
+          >
+        </div>
+
+        <div style="margin-left: 25px">
+          <a href="./blog.html" class="profile" style="color: white"
+            >Create blog</a
+          >
+        </div>
+
+        <div class="logout2">
+          <a href="./login.html" class="logout">Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-container">
+      <img src="/img/profile.png" alt="Profile Image" />
+      <h2>Profile Settings</h2>
+      <form>
+        <label for="old-password">Old Password:</label>
+        <input type="password" id="old-password" name="old-password" required />
+
+        <label for="new-password">New Password:</label>
+        <input type="password" id="new-password" name="new-password" required />
+
+        <label for="repeat-password">Repeat Password:</label>
+        <input
+          type="password"
+          id="repeat-password"
+          name="repeat-password"
+          required
+        />
+
+        <button type="submit" class="update-button">Update Password</button>
+      </form>
+    </div>
+  </body>
+</html>
